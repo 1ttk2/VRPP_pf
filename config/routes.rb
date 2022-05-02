@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+
 scope module: :public do
   root :to => 'homes#top'
+  get 'homes/about' => 'homes#about'
+  resource :user, only:[:show, :edit, :unsubcribe, :update, :withdrawl]
+  get '/users/my_page' => 'users#show'
 end
 
 
