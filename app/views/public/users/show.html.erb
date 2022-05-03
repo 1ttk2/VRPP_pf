@@ -1,2 +1,13 @@
-<h1>マイページ</h1>
-<div></div>
+<div class='container mt-5'>
+  <div class='row d-flex flex-column'>
+    <div class="d-flex align-items-center justify-content-center">
+      <%= render 'info', user: @user %>
+    </div>
+    <div>
+    <%= link_to "マイページを編集する", edit_user_path %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Post index</h2>
+    </div>
+  </div>
+</div>

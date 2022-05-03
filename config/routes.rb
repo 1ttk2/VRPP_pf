@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :migrations
 scope module: :public do
   root :to => 'homes#top'
   get 'homes/about' => 'homes#about'
