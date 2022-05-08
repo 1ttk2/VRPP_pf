@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 mx-auto mt-3">
+      <h2><span class="bg-light">詳細ページ</span></h2>
+      <table class="table table-bordered border-dark">
+        <thead class="table-secondary">
+          <tr>
+            <th>写真</th>
+            <th>説明文</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= image_tag @post.get_post_image(500,500) %></td>
+            <td><%= @post.explanation %></td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>ワールドURL　</th>
+            <td><%= @post.world_url %></td>
+          </tr>
+        </thead>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>タグ　</th>
+            <td class="fas fa-tag"><%= @post.tags.map(&:name).join(', ') %></td>
+            <% @post_tags.each do |tag| %>
+              <td><%=tag.name%><%="(#{tag.posts.count})" %></td>
+            <% end %>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+<%= link_to "投稿を編集する", edit_post_path(@post.id) %>
