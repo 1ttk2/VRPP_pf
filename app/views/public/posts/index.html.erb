@@ -1,16 +1,14 @@
-<%= notice %>
-<div class='container mt-5'>
-  <div class='row d-flex flex-column'>
-    <div class="d-flex align-items-center justify-content-center">
-      <%= render 'info', user: @user %>
-    </div>
-    <div>
-      <%= link_to "マイページを編集する", edit_user_path(@user.id) %>
-    </div>
 
     <div class='col-md-8 offset-md-1'>
-      <h2>投稿履歴</h2>
-
+      <div class="container">
+      <h3>タグ一覧</h3>
+      <!--タグリスト-->
+        <% @tag_list.each do |list|%>
+          <%=link_to list.name,search_tag_path(tag_id: list.id) %>
+          <%="(#{list.posts.count})" %>
+        <% end %>
+      </div>
+      <h2>投稿一覧</h2>
         <% @posts.each do |po| %>
           <div>
             <%= link_to post_path(po.id) do %>
@@ -26,5 +24,3 @@
           <% end %>
         <% end %>
     </div>
-  </div>
-</div>

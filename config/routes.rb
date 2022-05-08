@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-  devise_for :migrations
 scope module: :public do
   root :to => 'homes#top'
   get 'homes/about' => 'homes#about'
-  resource :user, only:[:show, :edit, :unsubcribe, :update, :withdrawl]
+  resource :user, only:[:index, :show, :edit, :unsubcribe, :update, :withdrawl]
   get '/users/my_page' => 'users#show'
+  resources :posts, only:[:edit, :show, :index, :update, :destroy, :create, :new]
+  get "search_tag"=>"posts#search_tag"
 end
 
 

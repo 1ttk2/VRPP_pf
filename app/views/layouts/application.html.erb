@@ -23,6 +23,12 @@
               <%= link_to "マイページ", users_my_page_path(current_user.id), class: 'nav-link text-white'%>
             </li>
             <li>
+              <%= link_to "投稿", new_post_path, class: 'nav-link text-white' %>
+            </li>
+            <li>
+              <%= link_to "投稿一覧", posts_path, class: 'nav-link text-white'%>
+            </li>
+            <li>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-white'%>
             </li>
             <% else %>
