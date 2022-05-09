@@ -1,7 +1,11 @@
 <!--タグリスト-->
 <% @tag_list.each do |list|%>
-  <%=link_to list.name,search_tag_path(tag_id: list.id) %>
-  <%="(#{list.posts.count})" %><% end %>
+  <% post_count = list.posts.count %>
+  <% if post_count > 0 %>
+    <%= link_to list.name,search_tag_path(tag_id: list.id) %>
+    <%= "(#{post_count})" %>
+  <% end %>
+<% end %>
 <% @posts.each do |post| %>
 <!--投稿はカードで囲む-->
 <div class="card">
@@ -12,6 +16,8 @@
       <%= image_tag post.get_post_image(100,100) %>
       <%= post.explanation.truncate(50) %>
       <% end %>
+      <div id="favorite-btn_<%= post.id %>">
+      <%= render "public/favorites/favorites-btn", post: post %></div>
     </h6>
     <!--お気に入り、コメント数、投稿者は部分テンプレ-->
   </div>

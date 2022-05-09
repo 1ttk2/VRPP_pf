@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-
+  before_action :correct_user, only: [:edit, :update]
   before_action :authenticate_user!
   def index
     @posts = Post.all
@@ -25,8 +25,11 @@ class Public::PostsController < ApplicationController
   end
 
   def update
+    # postのid持ってくる
     @post = Post.find(params[:id])
+    # 入力されたタグを受け取る
     tag_list = params[:post][:tag_name].split(',')
+    # もしpostの情報が更新されたら
     if @post.update(post_params)
       # このpost_idに紐づいていたタグを@oldに入れる
       @old_relations = PostTag.where(post_id: @post.id)
@@ -63,6 +66,12 @@ class Public::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:explanation, :world_url, :avatar_url, :post_image )
+  end
+
+  def correct_user
+    @post = Post.find(params[:id])
+    @user = @post.user
+    redirect_to(posts_path) unless @user == current_user
   end
 
 end

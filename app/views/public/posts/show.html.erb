@@ -32,10 +32,17 @@
             <% @post_tags.each do |tag| %>
               <td><%=tag.name%><%="(#{tag.posts.count})" %></td>
             <% end %>
+            <!--投稿したユーザーしかeditに飛ばすリンクを表示させない-->
+            <% if user_signed_in? && current_user.id == @post.user.id %>
+　            <td><%= link_to "投稿を編集する", edit_post_path(@post.id) %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <th id="favorite-btn_<%= @post.id %>">
+            <%= render "public/favorites/favorites-btn", post: @post %></th>
           </tr>
         </thead>
       </table>
     </div>
   </div>
 </div>
-<%= link_to "投稿を編集する", edit_post_path(@post.id) %>
