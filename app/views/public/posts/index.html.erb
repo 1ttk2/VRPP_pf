@@ -3,24 +3,37 @@
       <div class="container">
       <h3>タグ一覧</h3>
       <!--タグリスト-->
+      <!--0以下になった投稿のタグはリンクを表示させない-->
         <% @tag_list.each do |list|%>
-          <%=link_to list.name,search_tag_path(tag_id: list.id) %>
-          <%="(#{list.posts.count})" %>
+          <% post_count = list.posts.count %>
+          <% if post_count > 0 %>
+            <%= link_to list.name,search_tag_path(tag_id: list.id) %>
+            <%= "(#{post_count})" %>
+          <% end %>
         <% end %>
       </div>
       <h2>投稿一覧</h2>
         <% @posts.each do |po| %>
           <div>
+            user : <%= po.user.name %>
+            <%= po.created_at %>
+          </div>
+          <div>
             <%= link_to post_path(po.id) do %>
             <%= image_tag po.get_post_image(200,200) %>
             <% end %>
           </div>
+          <!--説明文-->
           <div><%= po.explanation %></div>
-          <div><%= link_to "投稿を編集する", edit_post_path(po.id) %></div>
+
+          <!--タグ-->
           <div class="fas fa-tag"><%= po.tags.map(&:name).join(', ') %></div>
           <% po.tags.each do |tag| %>
-            <div><%= tag.name %></div>
-            <div><%="(#{tag.posts.count})" %></div>
+            <%= tag.name %>
+            <%="(#{tag.posts.count})" %>
           <% end %>
+          <!--ファボボタン-->
+          <div id="favorite-btn_<%= po.id %>">
+          <%= render "public/favorites/favorites-btn", post: po %></div>
         <% end %>
     </div>
