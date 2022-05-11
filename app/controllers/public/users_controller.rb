@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   ##マイページのアクション
   def show
-    @user = current_user
+    @user = User.find(params[:id])
     @posts = @user.posts
     #post_id = @user.posts.pluck(:id)
     #post_tags = PostTag.where(post_id: post_id)
@@ -19,7 +19,7 @@ class Public::UsersController < ApplicationController
     @user = current_user
     #binding.pry
     if @user.update(user_params)
-      redirect_to users_my_page_path
+      redirect_to user_path(current_user)
     else
       render :edit
     end

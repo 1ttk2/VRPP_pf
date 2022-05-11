@@ -4,14 +4,22 @@ class Public::PostsController < ApplicationController
   def index
     @posts = Post.all
     #タグ一覧
-    @tag_list=Tag.all
+    @tag_list = Tag.all
   end
 
   def search_tag
-    @tag_list=Tag.all #検索結果画面でもタグ一覧表示
-    @tag=Tag.find(params[:tag_id]) #検索されたタグを受け取る
+    @tag_list = Tag.all #検索結果画面でもタグ一覧表示
+    @tag = Tag.find(params[:tag_id]) #検索されたタグを受け取る
     #byebug
-    @posts=@tag.posts.page(params[:page]).per(10) #検索されたタグに紐づく投稿を表示
+    @posts = @tag.posts.page(params[:page]).per(10) #検索されたタグに紐づく投稿を表示
+  end
+
+  def search
+    selection = params[:keyword]
+    @posts = Post.sort(selection)
+    #検索結果を表示させるためその場でrenderする_いいねが０の投稿が表示されないのでメンターに聞いてみる
+    @tag_list = Tag.all
+    render :index
   end
 
   def show
@@ -55,12 +63,20 @@ class Public::PostsController < ApplicationController
     tag_list = params[:post][:tag_name].split(',')
     if @post.save
       @post.save_tag(tag_list)
-      redirect_to users_my_page_path, notice: "投稿が完了しました"
+      redirect_to user_path(current_user), notice: "投稿が完了しました"
     else
       @posts = Post.all
       render :index
     end
   end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to user_path(current_user)
+  end
+
+
 
   private
 

@@ -4,9 +4,11 @@
     <div class="d-flex align-items-center justify-content-center">
       <%= render 'info', user: @user %>
     </div>
-    <div>
-      <%= link_to "マイページを編集する", edit_user_path(@user.id) %>
-    </div>
+      <% if user_signed_in? && current_user.id == @user.id %>
+        <div>
+          <%= link_to "マイページを編集する", edit_user_path(current_user) %>
+        </div>
+      <%end%>
 
     <div class='col-md-8 offset-md-1'>
       <h2>投稿履歴</h2>
@@ -17,9 +19,16 @@
             <%= image_tag po.get_post_image(200,200) %>
             <% end %>
           </div>
+
           <div><%= po.explanation %></div>
-          <div><%= link_to "投稿を編集する", edit_post_path(po.id) %></div>
+
+          <!--投稿したユーザーしかeditに飛ばすリンクを表示させない-->
+          <% if user_signed_in? && current_user.id == po.user.id %>
+　          <div><%= link_to "投稿を編集する", edit_post_path(po.id) %></div>
+          <% end %>
+
           <div class="fas fa-tag"><%= po.tags.map(&:name).join(', ') %></div>
+
           <% po.tags.each do |tag| %>
             <div><%= tag.name %></div>
             <div><%="(#{tag.posts.count})" %></div>
