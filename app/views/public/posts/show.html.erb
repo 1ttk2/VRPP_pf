@@ -34,7 +34,8 @@
             <% end %>
             <!--投稿したユーザーしかeditに飛ばすリンクを表示させない-->
             <% if user_signed_in? && current_user.id == @post.user.id %>
-　            <td><%= link_to "投稿を編集する", edit_post_path(@post.id) %></td>
+              <td><%= link_to 'この投稿を消す', @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@post.id}"%></td>
+　            <td><%= link_to "投稿を編集する", edit_post_path(@post.id), class: "btn btn-sm btn-success" %></td>
             <% end %>
           </tr>
           <tr>

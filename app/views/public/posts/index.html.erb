@@ -13,9 +13,17 @@
         <% end %>
       </div>
       <h2>投稿一覧</h2>
+
+        <%= form_with model: @post, url: search_path, method: :get, local: true do |f| %>
+        <%= f.select :keyword, [['投稿が新しい順', 'new'], ['投稿が古い順', 'old'], ['いいねが多い順', 'likes'], ['いいねが少ない順', 'dislikes']] %>
+        <%= f.submit %>
+        <% end %>
+
         <% @posts.each do |po| %>
           <div>
+            <%= link_to user_path(po.user.id) do %>
             user : <%= po.user.name %>
+            <% end %>
             <%= po.created_at %>
           </div>
           <div>
