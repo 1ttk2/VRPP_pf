@@ -18,6 +18,7 @@
       <% end %>
       <div id="favorite-btn_<%= post.id %>">
       <%= render "public/favorites/favorites-btn", post: post %></div>
+      <%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
     </h6>
     <!--お気に入り、コメント数、投稿者は部分テンプレ-->
   </div>

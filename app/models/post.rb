@@ -2,9 +2,13 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
-    #いいね機能のアソシエーション処理
   has_many :favorites, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
   #has_many :favorite_users, through: :favorites, source: :user
+  validates :post_image, presence: true
+  validates :explanation, presence: true
+  validates :world_url, presence: true
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
@@ -41,14 +45,20 @@ class Post < ApplicationRecord
 
   def self.sort(selection)
     case selection
-    when 'new'
+    when 'new' #新しく作った順
       return all.order(created_at: :DESC)
-    when 'old'
+    when 'old' #古い投稿順
       return all.order(created_at: :ASC)
-    when 'likes'
-      return find(Favorite.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id))
-    when 'dislikes'
-      return find(Favorite.group(:post_id).order(Arel.sql('count(post_id) asc')).pluck(:post_id))
+    when 'likes' #いいねの多い順
+      #return find(Favorite.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id))
+      return all.sort { |a, b|
+      b.favorites.count <=> a.favorites.count
+      }
+    when 'dislikes' #いいねの少ない順
+      #return find(Favorite.group(:post_id).order(Arel.sql('count(post_id) asc')).pluck(:post_id))
+      return all.sort { |a, b|
+      a.favorites.count <=> b.favorites.count
+      }
     end
   end
 end
