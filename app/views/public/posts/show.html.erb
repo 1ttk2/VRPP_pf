@@ -44,6 +44,10 @@
           </tr>
         </thead>
       </table>
+      <div id="public_post_comments_index_<%= @post.id %>" >
+        <%= render "public/post_comments/post_comments_index", post: @post %></div>
+      <div id="public_post_comments_form_<%= @post.id %>" >
+        <%= render "public/post_comments/post_comments_form", post: @post, post_comment: @post_comment %></div>
     </div>
   </div>
 </div>

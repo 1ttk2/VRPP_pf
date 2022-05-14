@@ -1,3 +1,12 @@
+<% if @post.errors.any? %>
+  <%= @post.errors.count %>件の未入力があります。再度実行して下さい。
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <div class='container'>
   <div class='row center'>
     <div class='col-md-6'>
@@ -15,7 +24,7 @@
         <%= f.text_field :world_url %>
       </div>
       <div class="form-group">
-        <%= f.label"タグ (,で区切ると複数タグ登録できます)" %>
+        <%= f.label"タグ (,で区切ると複数タグ登録できます、未記入でも構いません)" %>
         <%= f.text_field :tag_name, value: @tag_list %>
       </div>
       <div class="form-group">

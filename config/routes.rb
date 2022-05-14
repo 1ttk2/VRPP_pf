@@ -12,14 +12,12 @@ scope module: :public do
   #get '/users/my_page' => 'users#my_page'
   resources :posts, only:[:edit, :show, :index, :update, :destroy, :create, :new] do
     resource :favorites, only: [:create, :destroy]
+    resources :post_comments, only: [:create, :destroy]
   end
   get "search_tag"=>"posts#search_tag"
   #検索結果をpostsコントローラのsearchアクションへ送信
   get 'search' => 'posts#search'
 end
-
-
-
 
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"

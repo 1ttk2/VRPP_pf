@@ -23,6 +23,7 @@ class Public::PostsController < ApplicationController
   end
 
   def show
+    @post_comment = PostComment.new
     @post = Post.find(params[:id])
     @post_tags = @post.tags
   end
@@ -65,8 +66,7 @@ class Public::PostsController < ApplicationController
       @post.save_tag(tag_list)
       redirect_to user_path(current_user), notice: "投稿が完了しました"
     else
-      @posts = Post.all
-      render :index
+      render :new
     end
   end
 

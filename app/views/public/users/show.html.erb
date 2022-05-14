@@ -27,11 +27,14 @@
 　          <div><%= link_to "投稿を編集する", edit_post_path(po.id) %></div>
           <% end %>
 
-          <div class="fas fa-tag"><%= po.tags.map(&:name).join(', ') %></div>
+          <div><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></div>
 
           <% po.tags.each do |tag| %>
-            <div><%= tag.name %></div>
-            <div><%="(#{tag.posts.count})" %></div>
+            <% post_count = tag.posts.count %>
+            <% if post_count > 0 %>
+              <%= link_to tag.name,search_tag_path(tag_id: tag.id) %>
+              <%= "(#{post_count})" %>
+            <% end %>
           <% end %>
         <% end %>
     </div>
