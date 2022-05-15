@@ -12,12 +12,11 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   def update
-    @user = current_user
-    #binding.pry
+    @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to user_path(current_user)
     else
@@ -25,13 +24,20 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  def unsubcribe
+  def destroy
+    @user = current_user
+    @user.destroy
+    redirect_to root_path
   end
+
+  def unsubscribe
+  end
+
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :Introduction, :profile_image)
+    params.require(:user).permit(:name, :Introduction, :profile_image, :is_deleted)
   end
 
 end

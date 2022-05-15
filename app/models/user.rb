@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
+  #ActiveStrageを使用
   has_one_attached :profile_image
 
   def get_profile_image(width,height)
@@ -17,5 +17,10 @@ class User < ApplicationRecord
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width,height]).processed
+  end
+
+  #is_deletedがfalseならtrueを返すようにしている
+  def active_for_authentication?
+    super && (is_deleted == false)
   end
 end
