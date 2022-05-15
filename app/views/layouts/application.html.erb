@@ -18,7 +18,6 @@
           </button>
           <div class="navbar-collapse collapse" id="navbarNavDropdown" style="">
             <ul class="navbar-nav ml-auto">
-              <% byebug %>
             <% if user_signed_in? %>
             <li>
               <%= link_to "マイページ", user_path(current_user), class: 'nav-link text-white'%>
