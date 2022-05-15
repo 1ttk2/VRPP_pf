@@ -1,0 +1,8 @@
+<h2>退会ページ</h2>
+ <p>
+   退会手続きをされますと、一部のサービスがご利用いただけなくなります。<br>
+   再度ご利用をいただく場合には、新規登録のお手続きが必要になります。<br>
+   本当に退会してよろしいですか？
+ </p>
+  <%= link_to '退会する', @user, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_user_#{current_user.id}"%>
+  <%= link_to "退会しない", user_path(current_user) %>

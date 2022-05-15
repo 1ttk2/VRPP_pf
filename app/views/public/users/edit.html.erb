@@ -1,38 +1,13 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 mt-3">
-      <table>
-        <thead>
-          <tr><th>プロフィール編集</th></tr>
-        </thead>
-        <tbody>
-          <%= form_with model: @user, url: user_path do |f| %>
-          <tr>
-            <td>
-              <div class="d-flex align-items-center justify-content-center">
-                <label for="inputName">Name</label>
-                <%= f.text_field :name, autofocus: true, id: "inputName", placeholder: "名前" %>
-              </div>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-center">
-                <label for="inputImage">ProfileImage</label>
-                <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
-              </div>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-center">
-                <label for="inputIntroduction">Introduction</label>
-                <%= f.text_field :Introduction, autofocus: true, id: "inputIntroduction", placeholder: "自己紹介文" %>
-              </div>
-            </td>
-            <td>
-              <%= f.submit "変更を保存" %>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </duv>
-  </div>
-</div>
+<%= form_with model: @user, url: user_path do |f| %>
+  <label for="inputName">ユーザーネーム</label>
+  <%= f.text_field :name, autofocus: true, id: "inputName", placeholder: "名前" %>
+  <label for="inputImage">プロフィール画像</label>
+  <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+  <label for="inputIntroduction">自己紹介文</label>
+  <%= f.text_field :Introduction, autofocus: true, id: "inputIntroduction", placeholder: "自己紹介文" %>
+  <%= f.submit "変更を保存" %>
+<% end %>
+
+
+<%= link_to 'アカウントを消す', @user, method: :delete, data: { confirm: '本当に消しますか？(削除すると投稿がすべて消え、一部機能が使えなくなります。
+またご利用の際は新規登録からよろしくお願いします。)' }, class: "btn btn-sm btn-danger destroy_user_#{@user.id}"%>

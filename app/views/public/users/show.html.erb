@@ -1,42 +1,45 @@
 <%= notice %>
-<div class='container mt-5'>
-  <div class='row d-flex flex-column'>
-    <div class="d-flex align-items-center justify-content-center">
-      <%= render 'info', user: @user %>
+<section class="py-5 text-center container">
+  <%= render 'info', user: @user %>
+</section>
+  <% if user_signed_in? && current_user.id == @user.id %>
+    <div>
+      <%= link_to "マイページを編集する", edit_user_path(current_user) %>
     </div>
-      <% if user_signed_in? && current_user.id == @user.id %>
-        <div>
-          <%= link_to "マイページを編集する", edit_user_path(current_user) %>
-        </div>
-      <%end%>
+  <% end %>
 
-    <div class='col-md-8 offset-md-1'>
-      <h2>投稿履歴</h2>
 
-        <% @posts.each do |po| %>
-          <div>
-            <%= link_to post_path(po.id) do %>
-            <%= image_tag po.get_post_image(200,200) %>
+
+<h2>投稿履歴</h2>
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @posts.each do |po| %>
+      <div class="col">
+        <div class="card shadow-sm">
+          <%= link_to post_path(po.id) do %>
+          <%= image_tag po.get_post_image(348,348) %>
+          <% end %>
+          <div class="card-body">
+            <p class="card-text"><%= po.explanation %></p>
+            <!--投稿したユーザーしかeditに飛ばすリンクを表示させない-->
+            <% if user_signed_in? && current_user.id == po.user.id %>
+　          <div><%= link_to "投稿を編集する", edit_post_path(po.id) %></div>
+            <% end %>
+            <!--投稿のshowへ-->
+            <div><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></div>
+            <!--投稿のタグ-->
+            <% po.tags.each do |tag| %>
+              <% post_count = tag.posts.count %>
+              <% if post_count > 0 %>
+                <%= link_to tag.name,search_tag_path(tag_id: tag.id) %>
+                <%= "(#{post_count})" %>
+              <% end %>
             <% end %>
           </div>
-
-          <div><%= po.explanation %></div>
-
-          <!--投稿したユーザーしかeditに飛ばすリンクを表示させない-->
-          <% if user_signed_in? && current_user.id == po.user.id %>
-　          <div><%= link_to "投稿を編集する", edit_post_path(po.id) %></div>
-          <% end %>
-
-          <div><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></div>
-
-          <% po.tags.each do |tag| %>
-            <% post_count = tag.posts.count %>
-            <% if post_count > 0 %>
-              <%= link_to tag.name,search_tag_path(tag_id: tag.id) %>
-              <%= "(#{post_count})" %>
-            <% end %>
-          <% end %>
-        <% end %>
+        </div>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>
