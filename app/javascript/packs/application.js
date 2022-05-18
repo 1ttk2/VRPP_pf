@@ -15,5 +15,6 @@ import "../stylesheets/application"
 import '@fortawesome/fontawesome-free/js/all'
 
 Rails.start()
+//require("@rails/ujs").start()
 Turbolinks.start()
 ActiveStorage.start()
