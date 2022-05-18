@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
   #ActiveStrageを使用
   has_one_attached :profile_image
 

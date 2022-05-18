@@ -39,7 +39,10 @@ class Post < ApplicationRecord
     # 新しいタグを保存
     new_tags.each do |new|
       new_post_tag = Tag.find_or_initialize_by(name: new)
-      self.tags << new_post_tag
+      post_tag = PostTag.where(post_id: self.id, tag_id: new_post_tag.id) #既にタグで紐づけられているか確認
+      unless post_tag.present? #紐づいていない時
+        self.tags << new_post_tag
+      end
    end
   end
 

@@ -1,0 +1,61 @@
+
+
+form#new_user {
+  width: 400px;
+  padding: 0px 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: white;
+  text-align: center;
+}
+
+form#new_user h2,form#new_user p {
+  color: black;
+  font-weight: 500;
+}
+
+form#new_user p {
+  font-size: 10px;
+}
+
+form#new_user input[type = "id"],form#new_user input[type = "password"],form#new_user input[type = "email"],form#new_user input[type = "text"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  border: 2px solid #ff69b4;
+  padding: 15px 10px;
+  width: 200px;
+  outline: none;
+  border-radius: 24px;
+  transition: 0.25s;
+  text-align: center;
+}
+
+form#new_user input[type = "id"]:focus,form#new_user input[type = "password"]:focus,form#new_user input[type = "email"]:focus,form#new_user input[type = "text"]:focus {
+  width: 280px;
+  background-color: #f0f8ff;
+}
+
+form#new_user input[type = "submit"]{
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  border: 2px solid #f0f8ff;
+  padding: 15px 10px;
+  width: 200px;
+  outline: none;
+  color: black;
+  border-radius: 25px;
+  transition: 0.25s;
+  text-align: center;
+  cursor: pointer;
+}
+
+form#new_user input[type = "submit"]:hover {
+  background-color: #ff69b4;
+  border: 2px solid #ff69b4;
+}

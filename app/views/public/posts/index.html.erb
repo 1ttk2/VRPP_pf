@@ -1,7 +1,6 @@
 
     <div class='col-md-8 offset-md-1'>
       <div class="container">
-      <h3>タグ一覧</h3>
       <!--タグリスト-->
       <!--0以下になった投稿のタグはリンクを表示させない-->
         <% @tag_list.each do |list|%>
@@ -12,27 +11,32 @@
           <% end %>
         <% end %>
       </div>
-      <h2>投稿一覧</h2>
 
+      <h2>INDEX</h2>
         <%= form_with model: @post, url: search_path, method: :get, local: true do |f| %>
-        <%= f.select :keyword, [['投稿が新しい順', 'new'], ['投稿が古い順', 'old'], ['いいねが多い順', 'likes'], ['いいねが少ない順', 'dislikes']] %>
-        <%= f.submit %>
+        <p>
+          <%= f.select :keyword, [['投稿が新しい順', 'new'], ['投稿が古い順', 'old'], ['いいねが多い順', 'likes'], ['いいねが少ない順', 'dislikes']] %>
+          <%= f.submit "更新" %>
+        </p>
         <% end %>
 
         <% @posts.each do |po| %>
-          <div>
-            <%= link_to user_path(po.user.id) do %>
-            user : <%= po.user.name %>
-            <% end %>
-            <%= po.created_at %>
-          </div>
-          <div>
+        <div class="card shadow-lg">
+          <div class="card-body">
+          <div class="post-image">
             <%= link_to post_path(po.id) do %>
-            <%= image_tag po.get_post_image(200,200) %>
+            <%= image_tag po.get_post_image(500,500) %>
             <% end %>
           </div>
+          <p class="post-name">
+            <%= link_to user_path(po.user.id) do %>
+            <%= po.user.name %>
+            <% end %>
+            <%= po.updated_at.strftime("%Y-%m-%d %H:%M") %>
+          </p>
+
           <!--説明文-->
-          <div><%= po.explanation %></div>
+          <div class="card-text"><%= po.explanation %></div>
 
           <!--タグ-->
           <% po.tags.each do |tag| %>
@@ -43,9 +47,11 @@
             <% end %>
           <% end %>
           <!--ファボボタン-->
-          <div id="favorite-btn_<%= po.id %>">
-          <%= render "public/favorites/favorites-btn", post: po %></div>
-
-          <div><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></div>
+          <p id="favorite-btn_<%= po.id %>">
+          <%= render "public/favorites/favorites-btn", post: po %>
+          <%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></p>
+          </div>
+        </div>
         <% end %>
     </div>
+    <%#= paginate @posts %>

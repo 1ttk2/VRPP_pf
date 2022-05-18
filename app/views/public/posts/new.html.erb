@@ -6,31 +6,37 @@
     <% end %>
   </ul>
 <% end %>
+<div class="pb-4 offset-2">
+  <div class="ml-5 pl-5">
+    <h3 class="ml-5 mini-title">new post</h3>
+  </div>
+</div>
 
-<div class='container'>
-  <div class='row center'>
-    <div class='col-md-6'>
+<div class="row px-5 mx-5">
+  <div class="col-6 offset-3">
     <%= form_with model: @post, url: posts_path, local:true do |f| %>
-      <div class="form-group">
-        <%= f.label "写真" %>
+      <div class="field form-group row">
+        <%= f.label "写真",class: "col-3" %>
         <%= f.file_field :post_image, accept: "image/*" %>
       </div>
-      <div class="form-group">
-        <%= f.label "説明文" %>
-        <%= f.text_field :explanation %>
+      <div class="field form-group row">
+        <%= f.label "説明文",class: "col-3" %>
+        <%= f.text_field :explanation, size: "50x50" %>
       </div>
-      <div class="form-group">
-        <%= f.label :world_url %>
+      <div class="field form-group row">
+        <%= f.label :world_url,class: "col-3" %>
         <%= f.text_field :world_url %>
       </div>
-      <div class="form-group">
-        <%= f.label"タグ (,で区切ると複数タグ登録できます、未記入でも構いません)" %>
+      <div class="field form-group row">
+        <%= f.label"タグ (,で区切ると複数タグ登録できます、未記入でも構いません)",class: "col-3" %>
         <%= f.text_field :tag_name, value: @tag_list %>
       </div>
-      <div class="form-group">
-        <%= f.submit "投稿", class: 'btn btn-success' %>
+      <div class="actions form-group row mt-5">
+        <div class="col-4 offset-4">
+          <%= f.submit "投稿", class:"btn btn-success btn-lg px-5" %>
+        </div>
       </div>
     <% end %>
-    </div>
   </div>
+  <div class="col-3">
 </div>

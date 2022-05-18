@@ -1,13 +1,16 @@
-<div class="row py-lg-8">
-  <p><%= image_tag user.get_profile_image(400,400) %></p>
-  <div class="col-lg-6 col-md-8 mx-auto">
-    <div class="justify-content: center;">
+<div>
+  <p><%= image_tag user.get_profile_image(400,400)%></p>
+  <div>
+    <div>
       <h4 class="fw-light">
         <%= user.name %>
       </h4>
-      <p class="lead text-muted">
-        <h6><%= user.Introduction%></h6>
-      </p>
+      <h6 class="fw-light">
+        <%= user.Introduction%>
+      </h6>
+      <% if user_signed_in? && current_user.id == @user.id %>
+        <p><%= link_to "マイページを編集する", edit_user_path(current_user) %></p>
+      <% end %>
     </div>
   </div>
 </div>

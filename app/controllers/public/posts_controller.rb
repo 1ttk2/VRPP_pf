@@ -1,7 +1,8 @@
 class Public::PostsController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:edit, :update, :new, :destroy]
   def index
+    #@posts = Post.page(params[:page])
     @posts = Post.all
     #タグ一覧
     @tag_list = Tag.all

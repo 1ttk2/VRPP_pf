@@ -25,5 +25,6 @@
   </div>
   <div class="form-group">
     <%= f.submit "変更を保存する", class: 'btn btn-success' %>
+    <%= link_to 'この投稿を消す', @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@post.id}"%>
   </div>
 <% end %>

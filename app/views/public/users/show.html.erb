@@ -2,16 +2,9 @@
 <section class="py-5 text-center container">
   <%= render 'info', user: @user %>
 </section>
-  <% if user_signed_in? && current_user.id == @user.id %>
-    <div>
-      <%= link_to "マイページを編集する", edit_user_path(current_user) %>
-    </div>
-  <% end %>
 
-
-
-<h2>投稿履歴</h2>
 <div class="album py-5 bg-light">
+  <h2 class="text-center">History</h2>
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% @posts.each do |po| %>
@@ -28,6 +21,8 @@
             <% end %>
             <!--投稿のshowへ-->
             <div><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></div>
+            <div id="favorite-btn_<%= po.id %>">
+            <%= render "public/favorites/favorites-btn", post: po %></div>
             <!--投稿のタグ-->
             <% po.tags.each do |tag| %>
               <% post_count = tag.posts.count %>
