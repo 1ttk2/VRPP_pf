@@ -2,3 +2,9 @@
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '../stylesheets/sessions.scss';
 @import '../stylesheets/homes.scss';
+@import '../stylesheets/posts.scss';
+
+body {
+  padding-top: 70px;
+  padding-bottom: 120px;
+}

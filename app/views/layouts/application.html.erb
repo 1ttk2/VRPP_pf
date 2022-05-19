@@ -11,7 +11,7 @@
 
   <body>
     <header class="shadow-sm">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
         <div class="container col-md-10">
           <%= link_to image_tag("VRPP_logo.jpg", width: '50%', height: '50%'), root_path %>
           <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,15 @@
         </div>
       </nav>
     </header>
+    <main>
     <%= yield %>
+    </main>
   </body>
+  <footer class="bg-info text-white py-4 fixed-bottom">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="mx-auto">Virtual Reality Photo Post</div>
+      </div>
+    </div>
+  </footer>
 </html>
