@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="my-3 d-flex justify-content-between">
+    <div class="d-flex align-items-center">
+      <%= link_to admin_user_path(@post.user.id) do %>
+        <%= image_tag @post.user.get_profile_image(150,150) %>
+        <%= @post.user.name %>
+      <% end %>
+    </div>
+    <div class="d-flex align-items-center">
+      <%= @post.updated_at.strftime("%Y-%m-%d %H:%M") %>
+    </div>
+    <div class="d-flex align-items-center">
+      <% @post_tags.each do |tag| %>
+        <%=tag.name%><%="(#{tag.posts.count})" %>
+      <% end %>
+    </div>
+    <div class="d-flex align-items-center">
+      <!--投稿したユーザーしかeditに飛ばすリンクを表示させない-->
+      <% if user_signed_in? && current_user.id == @post.user.id %>
+        <%= link_to "投稿を編集する", edit_post_path(@post.id), class: "btn btn-sm btn-success" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="text-center">
+    <%= image_tag @post.post_image, class: 'img-fluid' %>
+  </div>
+</div>
+<div class="container">
+  <div class="box1">
+    <div class="text-center my-2">Explanation</div>
+    <p class="text-break">
+      <%=safe_join(@post.explanation.split("\n"),tag(:br))%>
+    </p>
+    <!--<div class="text-break">-->
+    <!--  <%#= simple_format(@post.explanation) %>-->
+    <!--</div>-->
+    <div class="text-center my-2">WORLD URL</div>
+    <p class="text-break">
+      <%= @post.world_url %>
+    </p>
+  </div>
+
+
+  <!--div id="favorite-btn_<%#= @post.id %>"-->
+    <%#= render "admin/favorites/favorites-btn", post: @post %>
+  <!--/div-->
+
+  <div id="public_post_comments_index_<%= @post.id %>" >
+    <%= render "admin/post_comments/post_comments_index", post: @post %>
+  </div>
+  <div>
+    <%= link_to 'この投稿を消す', admin_post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@post.id}"%>
+  </div>
+
+  <!--div id="admin_post_comments_form_<%#= @post.id %>"-->
+    <%#= render "admin/post_comments/post_comments_form", post: @post, post_comment: @post_comment %>
+  <!--/div-->
+</div>

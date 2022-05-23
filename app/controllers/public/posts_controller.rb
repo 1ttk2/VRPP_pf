@@ -3,7 +3,7 @@ class Public::PostsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :new, :destroy]
   def index
     #@posts = Post.page(params[:page])
-    @posts = Post.all
+    @posts = Post.page(params[:page])
     #タグ一覧
     @tag_list = Tag.all
   end
@@ -17,10 +17,9 @@ class Public::PostsController < ApplicationController
 
   def search
     selection = params[:keyword]
-    @posts = Post.sort(selection)
-    #検索結果を表示させるためその場でrenderする_いいねが０の投稿が表示されないのでメンターに聞いてみる
+    @posts = Post.sort(selection).page(params[:page])
     @tag_list = Tag.all
-    render :index
+    render :index 
   end
 
   def show

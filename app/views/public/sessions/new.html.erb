@@ -27,8 +27,18 @@
     <p class="actions">
       <%= f.submit "Log in" %>
     </p>
-  <%= render "public/shared/links" %>
+  <%#= render "public/shared/links" %>
+  <%#= link_to user_twitter_omniauth_authorize_path do %>
+    <!--i class="fab fa-twitter"></i-->
+  <%# end %>
+  <% if devise_mapping.omniauthable? %>
+    <% resource_class.omniauth_providers.each do |provider| %>
+      <%= link_to "#{OmniAuth::Utils.camelize(provider)}アカウントでログイン", omniauth_authorize_path(resource_name, provider), class:"fa-brands fa-twitter", method: :post %>
+    <% end %>
   <% end %>
+
+  <% end %>
+
 </div>
 
 

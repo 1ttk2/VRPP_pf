@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-auto mt-3">
+      <h2><span class="bg-light">会員一覧</span></h2>
+      <table class="table mt-3">
+        <thead class="table-light">
+          <tr>
+            <th>会員ID</th>
+            <th>氏名</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |e| %>
+          <tr>
+            <td><%= e.id %></td>
+            <td><%= link_to e.name, admin_user_path(e.id) %></td>
+            <td><%= e.is_deleted ? '停止' : '有効' %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

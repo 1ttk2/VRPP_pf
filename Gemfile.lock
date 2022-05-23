@@ -95,6 +95,7 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    hashie (5.0.0)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -140,6 +141,16 @@ GEM
     nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    oauth (0.5.10)
+    omniauth (1.9.1)
+      hashie (>= 3.4.6)
+      rack (>= 1.6.2, < 3)
+    omniauth-oauth (1.2.0)
+      oauth
+      omniauth (>= 1.0, < 3)
+    omniauth-twitter (1.4.0)
+      omniauth-oauth (~> 1.1)
+      rack
     orm_adapter (0.5.0)
     pry (0.14.1)
       coderay (~> 1.1)
@@ -263,6 +274,8 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   listen (~> 3.3)
   mysql2
+  omniauth (= 1.9.1)
+  omniauth-twitter
   pry-rails
   puma (~> 3.11)
   rack-mini-profiler (~> 2.0)
