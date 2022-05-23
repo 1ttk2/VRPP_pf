@@ -13,8 +13,8 @@
     <!--表示される文字数は２５文字まで-->
     <h6 class="card-title">
       <%= link_to post_path(post.id) do %>
-      <%= image_tag post.get_post_image(100,100) %>
-      <%= post.explanation.truncate(50) %>
+        <%= image_tag post.get_post_image(100,100) %>
+        <%= post.explanation.truncate(50) %>
       <% end %>
       <div id="favorite-btn_<%= post.id %>">
       <%= render "public/favorites/favorites-btn", post: post %></div>

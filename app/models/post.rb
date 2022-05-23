@@ -53,15 +53,17 @@ class Post < ApplicationRecord
     when 'old' #古い投稿順
       return all.order(created_at: :ASC)
     when 'likes' #いいねの多い順
-      #return find(Favorite.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id))
-      return all.sort { |a, b|
+     #ids = Favorite.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id)
+      #return where(id: ids).order_as_specified(id: ids)
+      return Kaminari.paginate_array(all.sort { |a, b|
       b.favorites.count <=> a.favorites.count
-      }
+      })
     when 'dislikes' #いいねの少ない順
-      #return find(Favorite.group(:post_id).order(Arel.sql('count(post_id) asc')).pluck(:post_id))
-      return all.sort { |a, b|
+     #ids = Favorite.group(:post_id).order(Arel.sql('count(post_id) asc')).pluck(:post_id)
+      #return where(id: ids).order_as_specified(id: ids)
+      return Kaminari.paginate_array(all.sort { |a, b|
       a.favorites.count <=> b.favorites.count
-      }
+      })
     end
   end
 end

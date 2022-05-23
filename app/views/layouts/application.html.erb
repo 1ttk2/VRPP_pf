@@ -7,6 +7,7 @@
     <%#= yield :css %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/fd91912c73.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -20,28 +21,42 @@
           <div class="navbar-collapse collapse" id="navbarNavDropdown" style="">
             <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
-            <li>
-              <%= link_to "マイページ", user_path(current_user), class: 'nav-link text-white'%>
-            </li>
-            <li>
-              <%= link_to "投稿", new_post_path, class: 'nav-link text-white' %>
-            </li>
-            <li>
-              <%= link_to "投稿一覧", posts_path, class: 'nav-link text-white'%>
-            </li>
-            <li>
-              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-white'%>
-            </li>
+              <li>
+                <%= link_to "マイページ", user_path(current_user), class: 'nav-link text-white'%>
+              </li>
+              <li>
+                <%= link_to "投稿", new_post_path, class: 'nav-link text-white' %>
+              </li>
+              <li>
+                <%= link_to "投稿一覧", posts_path, class: 'nav-link text-white'%>
+              </li>
+              <li>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-white'%>
+              </li>
+            <% elsif admin_signed_in? %>
+            管理者モード
+              <li>
+                <%= link_to "投稿一覧", admin_posts_path, class: "nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "会員一覧", admin_users_path, class: "nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-light" %>
+              </li>
             <% else %>
-            <li>
-              <%= link_to "投稿一覧", posts_path, class: 'nav-link text-white'%>
-            </li>
-            <li>
-              <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-white'%>
-            </li>
-            <li>
-              <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-white'%>
-            </li>
+              <li>
+                <%= link_to "投稿一覧", posts_path, class: 'nav-link text-white'%>
+              </li>
+              <li>
+                <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-white'%>
+              </li>
+              <li>
+                <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-white'%>
+              </li>
+              <li>
+                <%= link_to "管理者", new_admin_session_path, class: 'nav-link text-white'%>
+              </li>
             <% end %>
             </ul>
           </div>

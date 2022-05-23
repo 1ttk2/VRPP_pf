@@ -1,0 +1,59 @@
+<div class='col-md-10 offset-md-1'>
+  <div class="container">
+  <!--タグリスト-->
+  <!--0以下になった投稿のタグはリンクを表示させない-->
+    <% @tag_list.each do |list|%>
+      <% post_count = list.posts.count %>
+      <% if post_count > 0 %>
+        <%= link_to list.name,admin_search_tag_path(tag_id: list.id) %>
+        <%= "(#{post_count})" %>
+      <% end %>
+    <% end %>
+  </div>
+<div class="container">
+  <div class="my-1 mx-3 d-flex justify-content-start">
+  <h2>INDEX</h2>
+  <%= form_with model: @post, url: admin_search_path, method: :get, local: true do |f| %>
+    <div class="mx-5 my-2">
+      <%= f.select :keyword, [['投稿が新しい順', 'new'], ['投稿が古い順', 'old'], ['いいねが多い順', 'likes'], ['いいねが少ない順', 'dislikes']] %>
+      <%= f.submit "更新" %>
+    </div>
+  <% end %>
+  </div>
+</div>
+<div class="container">
+  <% @posts.each do |po| %>
+  <div class="card shadow-lg">
+    <div class="card-body">
+      <div>
+        <%= link_to admin_post_path(po.id) do %>
+          <%= image_tag po.get_post_image(500,500) %>
+        <% end %>
+      </div>
+      <p>
+        <%= link_to admin_user_path(po.user.id) do %>
+          <%= po.user.name %>
+        <% end %>
+        <%= po.updated_at.strftime("%Y-%m-%d %H:%M") %>
+      </p>
+      <!--説明文-->
+      <p class="card-text"><%= po.explanation %></p>
+      <!--タグ-->
+      <p>
+      <% po.tags.each do |tag| %>
+        <% post_count = tag.posts.count %>
+        <% if post_count > 0 %>
+        <%= link_to tag.name,search_tag_path(tag_id: tag.id) %>
+          <%= "(#{post_count})" %>
+        <% end %>
+      <% end %>
+      </p>
+      <!--ファボボタン-->
+      <span id="favorite-btn_<%= po.id %>">
+        <%= render "public/favorites/favorites-btn", post: po %></span>
+      <span><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></span>
+    </div>
+  </div>
+  <% end %>
+  <%= paginate @posts %>
+</div>

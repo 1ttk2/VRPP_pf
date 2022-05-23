@@ -1,0 +1,42 @@
+
+<div class="container">
+<%= form_with model: @user, url: admin_user_path do |f| %>
+  <div>
+    <%= image_tag @user.get_profile_image(500,500) %>
+  </div>
+  <span>
+    <div><%= @user.name %></div>
+    <div><%= @user.Introduction %></div>
+    <%= form_with(model: @user, local: true) do |f| %>
+      <div></div><%= f.radio_button :is_deleted, false %>
+      <%= f.label :is_deleted, "アカウントを有効" %>
+      <div></div><%= f.radio_button :is_deleted, true %>
+      <%= f.label :is_deleted, "アカウントを停止" %>
+    <% end %>
+    <%=f.submit "変更を保存", class: "btn btn-success" %>
+    <div><%= link_to 'アカウントを消す', admin_user_path(@user.id), method: :delete, data: { confirm: '本当に消しますか？(削除すると投稿がすべて消え、一部機能が使えなくなります。
+二度と戻りません、よろしいですか？)' }, class: "btn btn-sm btn-danger destroy_user_#{@user.id}"%></div>
+  </span>
+<% end %>
+</div>
+
+
+
+
+<% @posts.each do |post| %>
+<!--投稿はカードで囲む-->
+<div class="card">
+  <div class="card-body">
+    <!--表示される文字数は２５文字まで-->
+    <h6 class="card-title">
+      <%= link_to admin_post_path(post.id) do %>
+        <%= image_tag post.get_post_image(100,100) %>
+        <%= post.explanation.truncate(50) %>
+      <% end %>
+    </h6>
+    <div>
+    <%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
+    </div>
+  </div>
+</div>
+<% end %>
