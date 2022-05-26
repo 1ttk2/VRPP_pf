@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   #has_many :favorite_users, through: :favorites, source: :user
   validates :post_image, presence: true
-  validates :explanation, presence: true
+  validates :explanation, presence: true, length:{maximum:250}
   validates :world_url, presence: true
 
   def favorited_by?(user)

@@ -73,3 +73,5 @@ end
 #twitter連携用Gem
 gem 'omniauth', '1.9.1'
 gem 'omniauth-twitter'
+
+gem 'rails-i18n'

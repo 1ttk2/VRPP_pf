@@ -1,30 +1,55 @@
+<div class="d-flex justify-content-center">
+  <h1>
+    <span class="d-block text-center" style="font-size: calc(10px + 1vw);">
+      POST EDIT
+    </span>
+  </h1>
+</div>
+
 <% if @post.errors.any? %>
-  <%= @post.errors.count %>件の未入力があります。再度実行して下さい。
-  <ul>
-    <% @post.errors.full_messages.each do |message| %>
+  <div class="py-3 d-flex justify-content-center">
+  <%= @post.errors.count %>件のエラーがあります。再度実行して下さい。</div>
+  <div class="d-flex justify-content-center">
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
       <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<div class="row px-5 mx-5 py-3">
+  <div class="col-6 offset-3">
+    <%= form_with model: @post, url: post_path(@post.id), local:true do |f| %>
+      <div class="field form-group d-flex justify-content-center">
+        <%= f.label "写真" %>
+        <%= f.file_field :post_image, accept: "image/*" %>
+      </div>
+      <div class="field form-group">
+        <div class="field form-group d-flex justify-content-center">
+          <%= f.label "説明文 (250文字まで)" %>
+        </div>
+        <%= f.text_area :explanation, class: "form-control" %>
+      </div>
+      <div class="field form-group">
+        <div class="field form-group d-flex justify-content-center">
+          <%= f.label :world_url %>
+        </div>
+        <%= f.text_field :world_url, class: "form-control" %>
+      </div>
+      <div class="field form-group">
+        <div class="field form-group d-flex justify-content-center">
+          <%= f.label"タグ (,で区切ると複数タグ登録できます。タグなしでも投稿可能です。)" %>
+        </div>
+        <%= f.text_field :tag_name,value: @tag_list, class: "form-control"%>
+      </div>
+      <div class="actions form-group row mt-5">
+        <div class="my-2 offset-4 d-flex justify-content-around">
+          <%= f.submit "変更を保存する", class: 'btn btn-success' %>
+          <%= link_to "この投稿を消す", @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@post.id}"%>
+        </div>
+      </div>
     <% end %>
-  </ul>
-<% end %>
-<%= form_with model: @post, url: post_path(@post.id), local:true do |f| %>
-  <div class="form-group">
-    <%= f.label "写真" %>
-    <%= f.file_field :post_image, accept: "image/*" %>
   </div>
-  <div class="form-group">
-    <%= f.label "説明文" %>
-    <%= f.text_field :explanation %>
-  </div>
-  <div class="form-group">
-    <%= f.label :world_url %>
-    <%= f.text_field :world_url %>
-  </div>
-  <div class="form-group">
-    <%= f.label"タグ (,で区切ると複数タグ登録できます、未記入でも構いません)" %>
-    <%= f.text_field :tag_name,value: @tag_list,class:"form-control"%>
-  </div>
-  <div class="form-group">
-    <%= f.submit "変更を保存する", class: 'btn btn-success' %>
-    <%= link_to 'この投稿を消す', @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@post.id}"%>
-  </div>
-<% end %>
+</div>

@@ -1,35 +1,49 @@
-<% if @post.errors.any? %>
-  <%= @post.errors.count %>件の未入力があります。再度実行して下さい。
-  <ul>
-    <% @post.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-<div class="pb-4 offset-2">
-  <div class="ml-5 pl-5">
-    <h3 class="ml-5 mini-title">new post</h3>
-  </div>
+<div class="d-flex justify-content-center">
+  <h1>
+    <span class="d-block text-center" style="font-size: calc(10px + 1vw);">
+      NEW POST
+    </span>
+  </h1>
 </div>
 
-<div class="row px-5 mx-5">
+<% if @post.errors.any? %>
+  <div class="d-flex justify-content-center">
+  <%= @post.errors.count %>件のエラーがあります。再度実行して下さい。</div>
+  <div class="d-flex justify-content-center">
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+<div class="row px-5 mx-5 py-3">
   <div class="col-6 offset-3">
     <%= form_with model: @post, url: posts_path, local:true do |f| %>
-      <div class="field form-group row">
-        <%= f.label "写真",class: "col-3" %>
+      <div class="field form-group d-flex justify-content-center">
+        <%= f.label "写真"%>
         <%= f.file_field :post_image, accept: "image/*" %>
       </div>
-      <div class="field form-group row">
-        <%= f.label "説明文",class: "col-3" %>
-        <%= f.text_field :explanation, size: "50x50" %>
+      <div class="field form-group">
+        <div class="field form-group d-flex justify-content-center">
+          <%= f.label "説明文 (250文字まで) "%>
+        </div>
+        <%= f.text_area :explanation, class: "form-control"%>
       </div>
-      <div class="field form-group row">
-        <%= f.label :world_url,class: "col-3" %>
-        <%= f.text_field :world_url %>
+      <div class="field form-group">
+        <div class="field form-group d-flex justify-content-center">
+          <%= f.label :world_url %>
+        </div>
+        <%= f.text_field :world_url,  class: "form-control"%>
       </div>
-      <div class="field form-group row">
-        <%= f.label"タグ (,で区切ると複数タグ登録できます、未記入でも構いません)",class: "col-3" %>
-        <%= f.text_field :tag_name, value: @tag_list %>
+      <div class="field form-group">
+        <div class="field form-group d-flex justify-content-center">
+          <%= f.label"タグ (,で区切ると複数タグ登録できます。タグなしでも投稿可能です。)"%>
+        </div>
+        <%= f.text_field :tag_name, value: @tag_list, class: "form-control" %>
       </div>
       <div class="actions form-group row mt-5">
         <div class="col-4 offset-4">

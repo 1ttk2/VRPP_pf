@@ -1,17 +1,16 @@
 <!--メンターさんに教えてもらった伸び縮みするタイトル作成-->
-<!--<div class="d-flex justify-content-center">-->
-<!--  <h1>-->
-<!--    TEST-->
-<!--    <span class="d-block text-center" style="font-size: calc(10px + 1vw);">-->
-<!--      Page-->
-<!--    </span>-->
-<!--  </h1>-->
-<!--</div>-->
+<div class="d-flex justify-content-center">
+  <h1>
+    <span class="d-block text-center" style="font-size: calc(10px + 1vw);">
+      SHOW PAGE
+    </span>
+  </h1>
+</div>
 <div class="container">
   <div class="my-3 d-flex justify-content-between">
     <div class="d-flex align-items-center">
       <%= link_to user_path(@post.user.id) do %>
-        <%= image_tag @post.user.get_profile_image(150,150) %>
+        <%= image_tag @post.user.get_profile_image(150,150), class: "rounded" %>
         <%= @post.user.name %>
       <% end %>
     </div>

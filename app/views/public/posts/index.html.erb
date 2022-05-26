@@ -1,4 +1,10 @@
-
+<div class="d-flex justify-content-center">
+  <h1>
+    <span class="d-block text-center" style="font-size: calc(10px + 1vw);">
+      POST INDEX
+    </span>
+  </h1>
+</div>
 <div class='col-md-10 offset-md-1'>
   <div class="container">
   <!--タグリスト-->
@@ -13,7 +19,6 @@
   </div>
 <div class="container">
   <div class="my-1 mx-3 d-flex justify-content-start">
-  <h2>INDEX</h2>
   <%= form_with model: @post, url: search_path, method: :get, local: true do |f| %>
     <div class="mx-5 my-2">
       <%= f.select :keyword, [['投稿が新しい順', 'new'], ['投稿が古い順', 'old'], ['いいねが多い順', 'likes'], ['いいねが少ない順', 'dislikes']] %>
@@ -24,35 +29,48 @@
 </div>
 <div class="container">
   <% @posts.each do |po| %>
-  <div class="card shadow-lg">
-    <div class="card-body">
-      <div>
-        <%= link_to post_path(po.id) do %>
-          <%= image_tag po.get_post_image(500,500) %>
-        <% end %>
-      </div>
-      <p>
+  <div class="row mb-3 shadow-lg">
+
+    <div class="col mt-3 mb-3">
+      <%= link_to post_path(po.id) do %>
+        <%= image_tag po.get_post_image(500,500) %>
+      <% end %>
+    </div>
+
+    <div class="col mt-3 mb-3">
+
+      <div class="d-flex justify-content-between">
+        user :
         <%= link_to user_path(po.user.id) do %>
           <%= po.user.name %>
         <% end %>
         <%= po.updated_at.strftime("%Y-%m-%d %H:%M") %>
-      </p>
+      </div>
+
       <!--説明文-->
-      <p class="card-text"><%= po.explanation %></p>
+      <div class="mt-2">
+        <%= po.explanation %>
+      </div>
       <!--タグ-->
-      <p>
-      <% po.tags.each do |tag| %>
-        <% post_count = tag.posts.count %>
-        <% if post_count > 0 %>
-        <%= link_to tag.name,search_tag_path(tag_id: tag.id) %>
-          <%= "(#{post_count})" %>
+
+      <div class="mt-2">
+        <% po.tags.each do |tag| %>
+          <% post_count = tag.posts.count %>
+          <% if post_count > 0 %>
+          <%= link_to tag.name,search_tag_path(tag_id: tag.id) %>
+            <%= "(#{post_count})" %>
+          <% end %>
         <% end %>
-      <% end %>
-      </p>
+      </div>
+
       <!--ファボボタン-->
-      <span id="favorite-btn_<%= po.id %>">
-        <%= render "public/favorites/favorites-btn", post: po %></span>
-      <span><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></span>
+      <div class="d-flex align-items-end flex-column bd-highlight mb-3" style="height: 150px;">
+        <div class="mt-auto p-2 bd-highlight">
+          <span id="favorite-btn_<%= po.id %>">
+            <%= render "public/favorites/favorites-btn", post: po %></span>
+          <span><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></span>
+        </div>
+      </div>
     </div>
   </div>
   <% end %>
