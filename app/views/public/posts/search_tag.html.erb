@@ -16,9 +16,13 @@
         <%= image_tag post.get_post_image(100,100) %>
         <%= post.explanation.truncate(50) %>
       <% end %>
-      <div id="favorite-btn_<%= post.id %>">
-        <%= render "public/favorites/favorites-btn", post: post %>
-        <%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
+      <div class="d-flex align-items-end flex-column bd-highlight">
+        <div class="bd-highlight">
+          <div id="favorite-btn_<%= post.id %>">
+            <%= render "public/favorites/favorites-btn", post: post %>
+            <%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
+          </div>
+        </div>
       </div>
     </h6>
     <!--お気に入り、コメント数、投稿者は部分テンプレ-->
