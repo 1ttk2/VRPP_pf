@@ -12,7 +12,7 @@
         <%= post_comment.created_at.strftime("%Y-%m-%d %H:%M") %>
       </div>
       <div class="mx-3">
-      <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true %></p>
+        <%= link_to "削除", admin_post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true %>
       </div>
     </div>
       <p class="text-break"><%= post_comment.comment %></p>

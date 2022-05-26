@@ -34,7 +34,9 @@
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-white'%>
               </li>
             <% elsif admin_signed_in? %>
-            管理者モード
+              <li class="d-flex align-items-center">
+                管理者モード
+              </li>
               <li>
                 <%= link_to "投稿一覧", admin_posts_path, class: "nav-link text-light" %>
               </li>

@@ -1,24 +1,29 @@
-
-<div class="container">
-<%= form_with model: @user, url: admin_user_path do |f| %>
-  <div>
-    <%= image_tag @user.get_profile_image(500,500) %>
+<section class="py-5 text-center container">
+  <div class="container">
+    <p><%= image_tag @user.get_profile_image(400,400),class: "rounded"%></p>
+    <div>
+      <div>
+        <h4 class="fw-light">
+          <%= @user.name %>
+        </h4>
+        <h6 class="fw-light">
+          <%= @user.Introduction%>
+        </h6>
+      </div>
+    </div>
   </div>
-  <span>
-    <div><%= @user.name %></div>
-    <div><%= @user.Introduction %></div>
-    <%= form_with(model: @user, local: true) do |f| %>
-      <div></div><%= f.radio_button :is_deleted, false %>
-      <%= f.label :is_deleted, "アカウントを有効" %>
-      <div></div><%= f.radio_button :is_deleted, true %>
-      <%= f.label :is_deleted, "アカウントを停止" %>
-    <% end %>
-    <%=f.submit "変更を保存", class: "btn btn-success" %>
-    <div><%= link_to 'アカウントを消す', admin_user_path(@user.id), method: :delete, data: { confirm: '本当に消しますか？(削除すると投稿がすべて消え、一部機能が使えなくなります。
+</section>
+<section class="text-center container">
+  <%= form_with model: @user, url: admin_user_path do |f| %>
+       <%= f.radio_button :is_deleted, false %>
+       <%= f.label :is_deleted, "有効" %>
+       <%= f.radio_button :is_deleted, true %>
+       <%= f.label :is_deleted, "停止" %>
+       <%=f.submit "変更を保存", class: "btn btn-success" %>
+       <div class="mt-2"><%= link_to 'アカウントを消す', admin_user_path(@user.id), method: :delete, data: { confirm: '本当に消しますか？(削除すると投稿がすべて消え、一部機能が使えなくなります。
 二度と戻りません、よろしいですか？)' }, class: "btn btn-sm btn-danger destroy_user_#{@user.id}"%></div>
-  </span>
-<% end %>
-</div>
+  <% end %>
+</section>
 
 
 
