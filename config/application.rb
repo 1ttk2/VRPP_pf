@@ -20,5 +20,6 @@ module VRPP
     config.i18n.default_locale = :ja
     # config.eager_load_paths << Rails.root.join("extras")
     config.time_zone = 'Tokyo'
+    config.assets.paths << Rails.root.join("app", "assets", "stylesheets", "videos")
   end
 end

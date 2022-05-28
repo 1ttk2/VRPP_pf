@@ -31,3 +31,4 @@
 
 ## 使用素材
 VRChat : https://hello.vrchat.com/
+ロゴ製作 : https://www.logo-kako.com/

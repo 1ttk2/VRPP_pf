@@ -5,8 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create!(
+Admin.create!(
     email: 'admin@admin',
     password: 'aaaaaa',
-    admin: true,
 )
+
+#本番環境の方でAdmin.create!に修正
+#それに伴いadmin: trueも削除しました
