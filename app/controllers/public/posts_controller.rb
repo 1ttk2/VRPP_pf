@@ -65,10 +65,14 @@ class Public::PostsController < ApplicationController
     if @post.save
       tags = Vision.get_image_data(@post.post_image)
       tags.each do |tag|
-        @post.tags.create(name: tag)
+        exist_tag = Tag.find_by(name: tag)
+        if exist_tag
+          PostTag.create(post: @post, tag: exist_tag)
+        else
+          @post.tags.create(name: tag)
+        end
       end
       @post.save_tag(tag_list)
-
       redirect_to user_path(current_user), notice: "投稿が完了しました"
     else
       render :new
