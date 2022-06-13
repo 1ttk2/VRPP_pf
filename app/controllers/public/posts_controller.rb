@@ -19,7 +19,7 @@ class Public::PostsController < ApplicationController
     selection = params[:keyword]
     @posts = Post.sort(selection).page(params[:page])
     @tag_list = Tag.all
-    render :index 
+    render :index
   end
 
   def show
@@ -63,6 +63,15 @@ class Public::PostsController < ApplicationController
     # 受け取った値を,で区切って配列にする
     tag_list = params[:post][:tag_name].split(',')
     if @post.save
+      tags = Vision.get_image_data(@post.post_image)
+      tags.each do |tag|
+        exist_tag = Tag.find_by(name: tag)
+        if exist_tag
+          PostTag.create(post: @post, tag: exist_tag)
+        else
+          @post.tags.create(name: tag)
+        end
+      end
       @post.save_tag(tag_list)
       redirect_to user_path(current_user), notice: "投稿が完了しました"
     else
