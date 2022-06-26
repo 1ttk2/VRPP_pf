@@ -1,11 +1,10 @@
-
 <div class="d-flex justify-content-center">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <h2>LOGIN</h2>
-    <p class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-    </p>
+    <!--p class="field">
+      <%#= f.label :name %><br />
+      <%#= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    </p-->
 
     <p class="field">
       <%= f.label :email %><br />

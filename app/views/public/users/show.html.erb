@@ -16,21 +16,21 @@
           <div class="card-body">
             <p class="card-text"><%= po.explanation %></p>
             <!--投稿したユーザーしかeditに飛ばすリンクを表示させない-->
-            <% if user_signed_in? && current_user.id == po.user.id %>
-　          <div><%= link_to "投稿を編集する", edit_post_path(po.id) %></div>
-            <% end %>
-            <!--投稿のshowへ-->
-            <div><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></div>
-            <div id="favorite-btn_<%= po.id %>">
-            <%= render "public/favorites/favorites-btn", post: po %></div>
-            <!--投稿のタグ-->
-            <% po.tags.each do |tag| %>
-              <% post_count = tag.posts.count %>
-              <% if post_count > 0 %>
-                <%= link_to tag.name,search_tag_path(tag_id: tag.id) %>
-                <%= "(#{post_count})" %>
+              <% if user_signed_in? && current_user.id == po.user.id %>
+　              <div><%= link_to "投稿を編集する", edit_post_path(po.id) %></div>
               <% end %>
-            <% end %>
+            <!--投稿のshowへ-->
+              <div><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></div>
+              <div id="favorite-btn_<%= po.id %>">
+              <%= render "public/favorites/favorites-btn", post: po %></div>
+            <!--投稿のタグ-->
+              <% po.tags.each do |tag| %>
+                <% post_count = tag.posts.count %>
+                <% if post_count > 0 %>
+                  <%= link_to tag.name,search_tag_path(tag_id: tag.id) %>
+                  <%= "(#{post_count})" %>
+                <% end %>
+              <% end %>
           </div>
         </div>
       </div>
