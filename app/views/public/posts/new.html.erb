@@ -7,6 +7,7 @@
 </div>
 
 <% if @post.errors.any? %>
+  <% p @post.errors.full_messages %>
   <div class="d-flex justify-content-center">
   <%= @post.errors.count %>件のエラーがあります。再度実行して下さい。</div>
   <div class="d-flex justify-content-center">

@@ -56,15 +56,13 @@ class Post < ApplicationRecord
     when 'likes' #いいねの多い順
      #ids = Favorite.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id)
       #return where(id: ids).order_as_specified(id: ids)
-      return Kaminari.paginate_array(all.sort { |a, b|
-      b.favorites.count <=> a.favorites.count
-      })
+      #return Kaminari.paginate_array(all.sort { |a, b| b.favorites.count <=> a.favorites.count})
+      return left_joins(:favorites).group(:id).order('count(favorites.post_id) desc')
     when 'dislikes' #いいねの少ない順
      #ids = Favorite.group(:post_id).order(Arel.sql('count(post_id) asc')).pluck(:post_id)
       #return where(id: ids).order_as_specified(id: ids)
-      return Kaminari.paginate_array(all.sort { |a, b|
-      a.favorites.count <=> b.favorites.count
-      })
+      #return Kaminari.paginate_array(all.sort { |a, b| a.favorites.count <=> b.favorites.count})
+      return left_joins(:favorites).group(:id).order('count(favorites.post_id) asc')
     end
   end
 end
