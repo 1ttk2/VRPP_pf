@@ -36,9 +36,7 @@
         <%= image_tag po.get_post_image(500,500) %>
       <% end %>
     </div>
-
     <div class="col mt-3 mb-3">
-
       <div class="d-flex justify-content-between">
         user :
         <%= link_to user_path(po.user.id) do %>
@@ -51,8 +49,8 @@
       <div class="mt-2">
         <%= po.explanation %>
       </div>
+      
       <!--タグ-->
-
       <div class="mt-2">
         <% po.tags.each do |tag| %>
           <% post_count = tag.posts.count %>
@@ -71,6 +69,7 @@
           <span><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></span>
         </div>
       </div>
+      
     </div>
   </div>
   <% end %>

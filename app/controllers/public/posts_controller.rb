@@ -4,8 +4,7 @@ class Public::PostsController < ApplicationController
   def index
     #@posts = Post.page(params[:page])
     @posts = Post.page(params[:page])
-    #タグ一覧
-    @tag_list = Tag.all
+    @tag_list = Tag.all #タグ一覧
   end
 
   def search_tag
