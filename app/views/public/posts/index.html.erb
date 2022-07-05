@@ -49,7 +49,7 @@
       <div class="mt-2">
         <%= po.explanation %>
       </div>
-      
+
       <!--タグ-->
       <div class="mt-2">
         <% po.tags.each do |tag| %>
@@ -69,7 +69,7 @@
           <span><%= link_to "#{po.post_comments.count} コメント", post_path(po.id) %></span>
         </div>
       </div>
-      
+
     </div>
   </div>
   <% end %>
